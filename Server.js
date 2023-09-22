@@ -21,8 +21,8 @@ app.use((req, res, next) => {
 });
 
 
-app.get('/', (req, res) => { 
-  res.status(200).end('¡Bienvenido a la API de Prendass!'); 
+app.get('/', (req, res) => {
+  res.status(200).end('¡Bienvenido a la API de Prendass!');
 });
 
 
@@ -85,28 +85,30 @@ app.delete('/prendas/:id', async (req, res) => {
     await disconnectFromMongodb();
   }
 });
+
+
 //Endpoints GET
 app.get('/prendas/nombre/:nombre', async (req, res) => {
-  const nombre = req.params.nombre 
+  const nombre = req.params.nombre
   const regex = new RegExp(nombre.toLowerCase(), 'i');
   if (nombre) {
-      const client = await connectToMongodb();
-      if (!client) {
-          res.status(500).send('Error al conectarse a MongoDB')
-          return;
-      }
-      const db = client.db('Prendas')
-      const prendas = await db.collection('prendas').find({ nombre: regex}).toArray()
-      await disconnectFromMongodb()
-      if (prendas == "") {
-          res.send('No hay productos que contenga ese nombre ')
-      }
-      else {
-          res.json(prendas)
-      }
+    const client = await connectToMongodb();
+    if (!client) {
+      res.status(500).send('Error al conectarse a MongoDB')
+      return;
+    }
+    const db = client.db('Prendas')
+    const prendas = await db.collection('prendas').find({ nombre: regex }).toArray()
+    await disconnectFromMongodb()
+    if (prendas == "") {
+      res.send('No hay productos que contenga ese nombre ')
+    }
+    else {
+      res.json(prendas)
+    }
   }
   else {
-      res.status(400).send('Error consulta vacia')
+    res.status(400).send('Error consulta vacia')
   }
 });
 
@@ -114,7 +116,7 @@ app.get('/prendas/nombre/:nombre', async (req, res) => {
 // Endpoint POST para agregar una nueva prenda
 app.post('/prendas', async (req, res) => {
   const nuevaPrenda = req.body;
-  
+
   if (!nuevaPrenda || Object.keys(nuevaPrenda).length === 0) {
     return res.status(400).send('Error en el formato de los datos ingresados');
   }
@@ -134,7 +136,7 @@ app.post('/prendas', async (req, res) => {
   }
 
   const client = await connectToMongodb();
-  
+
   if (!client) {
     return res.status(500).send('Error al conectarse a MongoDB');
   }
@@ -155,6 +157,7 @@ app.post('/prendas', async (req, res) => {
   }
 });
 
+
 // Endpoint PUT para modificar una prenda por su ID
 app.put('/prendas/:id', async (req, res) => {
   const idPrenda = req.params.id;
@@ -163,27 +166,26 @@ app.put('/prendas/:id', async (req, res) => {
     return res.status(400).send('Error en el formato de los datos ingresados');
   }
 
-    // Elimina el campo _id si está presente
-    if (prendaModificada._id) {
-      delete prendaModificada._id;
-    }
+  // Elimina el campo _id si está presente
+  if (prendaModificada._id) {
+    delete prendaModificada._id;
+  }
 
   // Validación de datos
-  if (
-    prendaModificada.codigo !== undefined && typeof prendaModificada.codigo !== 'number' ||
-    prendaModificada.nombre !== undefined && typeof prendaModificada.nombre !== 'string' ||
-    prendaModificada.precio !== undefined && typeof prendaModificada.precio !== 'number' ||
-    prendaModificada.categoria !== undefined && typeof prendaModificada.categoria !== 'string'
+  if (typeof prendaModificada.codigo !== 'number' ||
+    typeof prendaModificada.nombre !== 'string' ||
+    typeof prendaModificada.precio !== 'number' ||
+    typeof prendaModificada.categoria !== 'string'
   ) {
     return res.status(400).send('Error en el formato de los datos ingresados, recuerde que el código es numérico, el nombre es una cadena de caracteres, el precio es numérico  y la categoría es una cadena de caracteres');
   }
- 
+
   const client = await connectToMongodb();
   if (!client) {
-      res.status(500).send('Error al conectarse a MongoDB')
-      return;
+    res.status(500).send('Error al conectarse a MongoDB')
+    return;
   }
-  
+
   const db = client.db('Prendas');
   const prendasCollection = db.collection('prendas');
 
