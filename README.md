@@ -12,7 +12,7 @@
   - [Tabla de contenidos](#tabla-de-contenidos)
     - [Información General](#información-general)
     - [Link URL base](#link-url-base)
-    - [Objeto Mobiliario](#objeto-mobiliario)
+    - [Objeto Prendas](#objeto-prendas)
     - [Peticiones](#peticiones)
     - [Métodos](#métodos)
       - [Método PUT](#método-put)
@@ -39,7 +39,7 @@ Su clave primaria es el ID de MongoDB
 <!-- http://localhost:3000/api/v1/ -->
 http://localhost:3009
 
-### Objeto Mobiliario
+### Objeto Prendas
 ***
 ```javascript
 // ejemplo de la estructura de Prendas
