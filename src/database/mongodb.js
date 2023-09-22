@@ -18,7 +18,7 @@ async function connectToMongodb() {
     }
 }
 // arrow functions
-const disconnectToMongodb = async () => { 
+const disconnectFromMongodb = async () => { 
     try {
         await client.close()
         console.log('Desconectado de mongoDB')
@@ -26,4 +26,4 @@ const disconnectToMongodb = async () => {
         console.log('Error al desconectarse de mongoDB: ' + error)
     }
 }
-module.exports ={ connectToMongodb, disconnectToMongodb}
+module.exports ={ connectToMongodb, disconnectFromMongodb}
