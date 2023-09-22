@@ -26,7 +26,7 @@
 <div class="warning" style='padding:0.1em; background-color:#E9D8FD; color:#69337A'>
 <span>
 <p style='margin-left:1em;'>
-La Api prendas, es un proyecto para <b>Visualizar,Crear, Actualizar y Eliminar</b> fácilmente productos mobiliarios, con unas
+La Api prendas, es un proyecto para <b>Visualizar,Crear, Actualizar y Eliminar</b> fácilmente prendas, con unas
 caracteristicas como codigo, nombre, precio y categoria.
 Su clave primaria es el ID de MongoDB
 </p>
@@ -65,7 +65,7 @@ http://localhost:3009
 #### Método PUT
 ***
 > [!NOTE]  
-> Este método va actualizar la prenda recibiendo el objetID  y los campos del objeto a modificar en la base de datos
+> Este método va actualizar la prenda recibiendo el objetID  y los campos del objeto a modificar en la base de datos, si se envia el _id en el json formado en el body la funcion lo elimina para que no haya conflicto al actualizar los datos.
 ```javascript
 
 // Endpoint PUT para modificar una prenda por su ID
@@ -110,7 +110,7 @@ app.put('/prendas/:id', async (req, res) => {
 #### Metodo DELETE
 ***
 > [!NOTE]  
-> Este método elimina un producto mobiliario pasandole el código en la base de datos 
+> Este método elimina un producto mobiliario pasandole el ID en la base de datos 
 ```javascript
 app.delete('/prendas/:id', async (req, res) => {
   const idPrenda = req.params.id;
