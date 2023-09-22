@@ -99,7 +99,7 @@ app.get('/prendas/nombre/:nombre', async (req, res) => {
       const prendas = await db.collection('prendas').find({ nombre: regex}).toArray()
       await disconnectFromMongodb()
       if (prendas == "") {
-          res.send('No hay productos de esa categoria ')
+          res.send('No hay productos que contenga ese nombre ')
       }
       else {
           res.json(prendas)
@@ -194,7 +194,7 @@ app.put('/prendas/:id', async (req, res) => {
     );
 
     if (result.matchedCount === 0) {
-      return res.status(404).send('Prenda no encontrada');
+      return res.status(404).send('Prenda con el ID : ' + idPrenda + ' no encontrada');
     }
 
     console.log(`Se modificó correctamente la prenda con ID ${idPrenda}`);
